@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Burger - Alitas, Hamburguesas & Dogos</title>
+    <style>
+        :root {
+            --primary: #D4AF37;
+            --secondary: #8B0000;
+            --accent: #000000;
+            --dark: #1A1A1A;
+            --light: #F5F5F5;
+            --gradient: linear-gradient(45deg, #D4AF37, #8B0000);
+            --gold-light: #F0D991;
+            --red-light: #A52A2A;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        header {
+            background-color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            color: var(--dark);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .logo span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        
+        .logo small {
+            font-size: 0.6rem;
+            margin-left: 5px;
+            font-family: 'Poppins', sans-serif;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+        
+        nav ul li a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -5px;
+            left: 0;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(26, 26, 26, 0.7), rgba(26, 26, 26, 0.7)), 
+                        url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 1rem;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: -5%;
+        }
+        
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+            font-weight: 800;
+            letter-spacing: 2px;
+            animation: fadeInUp 1s ease;
+            font-family: 'Playfair Display', serif;
+            color: var(--primary);
+        }
+        
+        .hero p {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            animation: fadeInUp 1s ease 0.3s both;
+            font-weight: 400;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.4s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+            animation: fadeInUp 1s ease 0.6s both;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #8B0000, #D4AF37);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(139, 0, 0, 0.6);
+        }
+        
+        .btn:hover::before {
+            opacity: 1;
+        }
+        
+        .menu-section {
+            padding: 8rem 1rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--dark);
+            position: relative;
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 5px;
+            background: var(--gradient);
+            margin: 1rem auto;
+            border-radius: 5px;
+        }
+        
+        /* Mejoras para los controles del menú */
+        .menu-controls {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .menu-categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+        }
+        
+        .category-btn {
+            background: rgba(212, 175, 55, 0.1);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            color: var(--dark);
+            border: 2px solid transparent;
+        }
+        
+        .category-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .category-btn.active {
+            background: var(--gradient);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .category-btn i {
+            font-size: 1.1rem;
+        }
+        
+        /* Efecto de transición suave al cambiar categorías */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            transition: opacity 0.3s ease;
+        }
+        
+        .menu-grid.loading {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        
+        /* Diseño simplificado y elegante para las cartas del menú */
+        .menu-item {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+        
+        .menu-item-img-container {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+        }
+        
+        .menu-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .menu-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .menu-item-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--gradient);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .menu-item-content {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 2;
+            background: white;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .menu-item-title {
+            font-size: 1.4rem;
+            color: var(--dark);
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            line-height: 1.3;
+        }
+        
+        .menu-item-price {
+            font-size: 1.4rem;
+            color: var(--secondary);
+            font-weight: 800;
+            margin-left: 1rem;
+            white-space: nowrap;
+        }
+        
+        .menu-item-desc {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            flex-grow: 1;
+            font-size: 0.95rem;
+        }
+        
+        /* Etiquetas simplificadas */
+        .menu-item-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .menu-tag {
+            background-color: rgba(212, 175, 55, 0.1);
+            color: var(--dark);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .menu-tag.hot {
+            background-color: rgba(139, 0, 0, 0.1);
+            color: var(--secondary);
+        }
+        
+        .menu-tag.veg {
+            background-color: rgba(0, 128, 0, 0.1);
+            color: green;
+        }
+        
+        .menu-tag.combo {
+            background-color: rgba(0, 0, 139, 0.1);
+            color: #00008B;
+        }
+        
+        .menu-item-footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: auto;
+        }
+        
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #25D366;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .whatsapp-btn i {
+            margin-right: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(37, 211, 102, 0.3);
+        }
+        
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.2rem;
+            color: #666;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .no-results i {
+            margin-bottom: 1rem;
+            font-size: 3rem;
+            color: var(--gold-light);
+        }
+        
+        .menu-pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+            gap: 0.5rem;
+        }
+        
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--gold-light);
+            background: transparent;
+            color: var(--dark);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .page-btn:hover, .page-btn.active {
+            background: var(--gradient);
+            color: white;
+            border-color: transparent;
+        }
+        
+        .about-section {
+            padding: 6rem 1rem;
+            background: url('https://images.unsplash.com/photo-1512152272829-e3139592d56f') center/cover fixed;
+            position: relative;
+            clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+            margin: 5rem 0;
+        }
+        
+        .about-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 26, 26, 0.9);
+        }
+        
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            color: white;
+        }
+        
+        .about-content h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .about-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        
+        .about-img {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            transform: rotate(-5deg);
+            transition: transform 0.4s ease;
+            border: 5px solid var(--primary);
+        }
+        
+        .about-img:hover {
+            transform: rotate(0deg) scale(1.03);
+        }
+        
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .testimonials {
+            padding: 6rem 1rem;
+            background-color: var(--light);
+        }
+        
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .testimonial {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            border: 1px solid var(--gold-light);
+        }
+        
+        .testimonial:hover {
+            transform: translateY(-10px);
+        }
+        
+        .testimonial::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 5rem;
+            color: rgba(212, 175, 55, 0.1);
+            font-family: serif;
+            line-height: 1;
+            z-index: 0;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+        
+        .contact-section {
+            padding: 6rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+        
+        .contact-info {
+            text-align: center;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .contact-info p {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        
+        .contact-info i {
+            margin-right: 15px;
+            font-size: 1.3rem;
+            color: var(--primary);
+            width: 30px;
+            text-align: center;
+        }
+        
+        .social-links {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--dark);
+            margin: 0 10px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--gradient);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 1rem 2rem;
+            text-align: center;
+            clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
+            margin-top: -5%;
+            padding-top: 6%;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: inline-block;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            color: var(--gold-light);
+            font-size: 0.9rem;
+        }
+        
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background-color: #25D366;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+            z-index: 99;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+        }
+        
+        .whatsapp-float i {
+            color: white;
+            font-size: 2.5rem;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 1.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 1rem;
+            }
+            
+            .hero {
+                height: 80vh;
+                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.3rem;
+            }
+            
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-img {
+                order: -1;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            
+            .menu-grid {
+                grid-auto-flow: column;
+                grid-auto-columns: minmax(280px, 1fr);
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 1.5rem;
+                padding-bottom: 1rem;
+            }
+            
+            .menu-item {
+                scroll-snap-align: start;
+            }
+            
+            .menu-pagination {
+                display: none;
+            }
+            
+            footer {
+                clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 100%);
+                margin-top: -3%;
+                padding-top: 8%;
+            }
+            
+            .whatsapp-float {
+                width: 60px;
+                height: 60px;
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .whatsapp-float i {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .category-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .category-btn i {
+                font-size: 0.9rem;
+            }
+            
+            .menu-item-title {
+                font-size: 1.2rem;
+            }
+            
+            .menu-item-price {
+                font-size: 1.2rem;
+            }
+            
+            .menu-item-desc {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="royal.png" alt="Royal Burger Logo">
+                <span>Royal</span> Burger
+                <small>by Anne Paarro</small>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#menu">Menú</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="inicio">
+        <h1>ALITAS, HAMBURGUESAS & DOGOS</h1>
+        <p>Sabores explosivos que te harán volver por más</p>
+        <a href="#menu" class="btn pulse">EXPLORA EL MENÚ</a>
+    </section>
+
+    <section class="menu-section" id="menu">
+        <h2 class="section-title">Nuestro Menú</h2>
+        
+        <div class="menu-controls">
+            <div class="menu-categories" id="menuCategories">
+                <button class="category-btn active" data-category="all">
+                    <i class="fas fa-utensils"></i> Todo
+                </button>
+                <button class="category-btn" data-category="alitas">
+                    <i class="fas fa-drumstick-bite"></i> Alitas
+                </button>
+                <button class="category-btn" data-category="hamburguesas">
+                    <i class="fas fa-hamburger"></i> Hamburguesas
+                </button>
+                <button class="category-btn" data-category="dogos">
+                    <i class="fas fa-hotdog"></i> Dogos
+                </button>
+                <button class="category-btn" data-category="combos">
+                    <i class="fas fa-box-open"></i> Combos
+                </button>
+            </div>
+        </div>
+        
+        <div class="menu-grid" id="menuGrid"></div>
+        
+        <div class="menu-pagination" id="pagination"></div>
+    </section>
+
+    <section class="about-section" id="nosotros">
+        <div class="about-container">
+            <div class="about-content">
+                <h2 class="section-title">Nuestra Historia</h2>
+                <p>Royal Burger nació del amor por la comida  con un toque gourmet. Especializados en alitas, hamburguesas y hot dogs premium, cada plato es una explosión de sabores que te hará volver por más.</p>
+                <p>Usamos ingredientes frescos y preparaciones artesanales para ofrecerte la mejor experiencia de comida rápida pero con calidad premium.</p>
+                <p>¿Listo para probar nuestras creaciones?</p>
+                <a href="#contacto" class="btn">Visítanos Hoy</a>
+            </div>
+            <div class="about-img floating">
+                <img src="https://images.unsplash.com/photo-1559847844-5315695dadae" alt="Preparando alitas y hamburguesas">
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="testimonials-container">
+            <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial">
+                    <p class="testimonial-text">"Las alitas BBQ son las mejores de la ciudad. Perfectamente crujientes y con ese toque ahumado que las hace únicas. ¡Pido cada semana!"</p>
+                    <p class="testimonial-author">- Carlos Méndez</p>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text">"La Hamburguesa Royal es una locura de sabores. La combinación de ingredientes premium hace que no pueda elegir otra desde que la probé."</p>
+                    <p class="testimonial-author">- Ana Torres</p>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text">"Los dogos son enormes y llenos de sabor. El pan está siempre fresco y los toppings son de primera calidad. Mi lugar favorito para comer rápido y bien."</p>
+                    <p class="testimonial-author">- Luis Ramírez</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contacto">
+        <h2 class="section-title">Contacto</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Pedidos & Información</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Av. Principal 1234, Ciudad</p>
+                <p><i class="fas fa-phone-alt"></i> (555) 553-5555</p>
+                <p><i class="fas fa-mobile-alt"></i> +5 555-5555</p>
+                
+                <h3>Horario</h3>
+                <p><i class="far fa-clock"></i> Lun-Vie: 12PM - 12AM</p>
+                <p><i class="far fa-clock"></i> Sáb-Dom: 11AM - 2AM</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">Royal Burger</div>
+            <p>Alitas, Hamburguesas & Dogos Premium</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <p class="copyright">© 2023 Royal Burger by Anne Paarro. Todos los derechos reservados.<br>
+            Desarrollado por Alejandra Camacho <i class="" style="color: var(--primary);"></i> </p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/523221837950" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        const menuItems = [
+            // Alitas
+            {
+                id: 1,
+                name: "Alitas Clásicas",
+                price: 12.99,
+                description: "10 piezas de alitas crujientes bañadas en salsa BBQ clásica. Acompañadas de apio fresco y aderezo ranch.",
+                image: "https://images.unsplash.com/photo-1561758033-d89a9ad46330",
+                badge: "MÁS VENDIDO",
+                tags: ["Alitas", "BBQ", "Picante opcional"],
+                category: "alitas"
+            },
+            {
+                id: 2,
+                name: "Alitas Buffalo",
+                price: 13.99,
+                description: "10 alitas bañadas en auténtica salsa Buffalo picante. Servidas con bastones de zanahoria y aderezo blue cheese.",
+                image: "https://images.unsplash.com/photo-1544025162-d76694265947",
+                badge: "PICANTE",
+                tags: ["Alitas", "Buffalo", "Picante"],
+                category: "alitas"
+            },
+            {
+                id: 3,
+                name: "Alitas Mango Habanero",
+                price: 14.99,
+                description: "10 alitas glaseadas con nuestra exclusiva salsa de mango habanero. Dulce, picante y adictivo.",
+                image: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8",
+                badge: "EXTRA PICANTE",
+                tags: ["Alitas", "Mango", "Habanero"],
+                category: "alitas"
+            },
+            {
+                id: 4,
+                name: "Alitas Teriyaki",
+                price: 13.99,
+                description: "10 alitas marinadas en salsa teriyaki casera con toques de ajo y jengibre. Decoradas con semillas de sésamo.",
+                image: "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b",
+                badge: "ASIÁTICO",
+                tags: ["Alitas", "Teriyaki", "Sésamo"],
+                category: "alitas"
+            },
+            
+            // Hamburguesas
+            {
+                id: 5,
+                name: "Hamburguesa Clásica",
+                price: 14.99,
+                description: "Carne 100% res Angus, queso cheddar, lechuga, tomate, cebolla y salsa especial en pan brioche tostado.",
+                image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd",
+                badge: "CLÁSICA",
+                tags: ["Hamburguesa", "Angus", "Queso"],
+                category: "hamburguesas"
+            },
+            {
+                id: 6,
+                name: "Hamburguesa BBQ",
+                price: 16.99,
+                description: "Doble carne Angus, queso ahumado, tocino crujiente, aros de cebolla y salsa BBQ casera.",
+                image: "https://images.unsplash.com/photo-1553979459-d2229ba7433b",
+                badge: "BBQ",
+                tags: ["Hamburguesa", "Doble carne", "Tocino"],
+                category: "hamburguesas"
+            },
+            {
+                id: 7,
+                name: "Hamburguesa Picante",
+                price: 15.99,
+                description: "Carne sazonada, queso pepper jack, jalapeños, pico de gallo y salsa chipotle con mango habanero.",
+                image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90",
+                badge: "PICANTE",
+                tags: ["Hamburguesa", "Picante", "Jalapeños"],
+                category: "hamburguesas"
+            },
+            {
+                id: 8,
+                name: "Hamburguesa Veggie",
+                price: 14.99,
+                description: "Hamburguesa de lentejas y champiñones, queso de cabra, espinaca y pesto de albahaca en pan integral.",
+                image: "https://images.unsplash.com/photo-1551248429-40975aa4de74",
+                badge: "VEGGIE",
+                tags: ["Hamburguesa", "Vegetariana", "Queso de cabra"],
+                category: "hamburguesas"
+            },
+            
+            // Dogos
+            {
+                id: 9,
+                name: "Dogo Clásico",
+                price: 9.99,
+                description: "Salchicha premium, cebolla caramelizada, mostaza, ketchup y relish de pepinillos en pan suave.",
+                image: "https://images.unsplash.com/photo-1619740455993-9e612b1af08a",
+                badge: "CLÁSICO",
+                tags: ["Hot dog", "Salchicha", "Clásico"],
+                category: "dogos"
+            },
+            {
+                id: 10,
+                name: "Dogo Especial",
+                price: 12.99,
+                description: "Salchicha alemana, chili con carne, queso cheddar fundido, cebolla crujiente y jalapeños en pan de ajo.",
+                image: "https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c",
+                badge: "ESPECIAL",
+                tags: ["Hot dog", "Chili", "Queso"],
+                category: "dogos"
+            },
+            {
+                id: 11,
+                name: "Dogo Hawaino",
+                price: 11.99,
+                description: "Salchicha ahumada, piña grillada, tocino crocante y salsa agridulce en pan hawaiano.",
+                image: "https://images.unsplash.com/photo-1639657439991-10f3a1df6c74",
+                badge: "HAWAIANO",
+                tags: ["Hot dog", "Piña", "Tocino"],
+                category: "dogos"
+            },
+            {
+                id: 12,
+                name: "Dogo Mexicano",
+                price: 11.99,
+                description: "Salchicha jalapeño, frijoles refritos, guacamole, pico de gallo y crema agria en pan de maíz.",
+                image: "https://images.unsplash.com/photo-1619740455993-9e612b1af08a",
+                badge: "MEXICANO",
+                tags: ["Hot dog", "Picante", "Guacamole"],
+                category: "dogos"
+            },
+            
+            // Combos
+            {
+                id: 13,
+                name: "Combo Alitas + Dogo",
+                price: 18.99,
+                description: "6 alitas a elección + 1 dogo clásico + papas fritas + refresco. Ahorra $3 vs comprar por separado.",
+                image: "https://images.unsplash.com/photo-1544025162-d76694265947",
+                badge: "COMBO",
+                tags: ["Combo", "Alitas", "Hot dog"],
+                category: "combos"
+            },
+            {
+                id: 14,
+                name: "Combo Hamburguesa + Alitas",
+                price: 22.99,
+                description: "1 hamburguesa a elección + 5 alitas + papas fritas + refresco. Ahorra $5 vs comprar por separado.",
+                image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd",
+                badge: "COMBO",
+                tags: ["Combo", "Hamburguesa", "Alitas"],
+                category: "combos"
+            },
+            {
+                id: 15,
+                name: "Combo Familiar",
+                price: 39.99,
+                description: "2 hamburguesas + 10 alitas + 2 dogos + papas grandes + 2 refrescos. Ideal para compartir.",
+                image: "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b",
+                badge: "FAMILIAR",
+                tags: ["Combo", "Grupo", "Ahorro"],
+                category: "combos"
+            }
+        ];
+
+        let currentPage = 1;
+        const itemsPerPage = 6;
+        let filteredItems = [...menuItems];
+        let currentCategory = 'all';
+        const menuGrid = document.getElementById('menuGrid');
+        const pagination = document.getElementById('pagination');
+
+        function loadMenu(page = 1, category = 'all') {
+            currentPage = page;
+            currentCategory = category;
+            
+            // Mostrar estado de carga
+            menuGrid.classList.add('loading');
+            
+            // Simular un pequeño retraso para mejor experiencia
+            setTimeout(() => {
+                filteredItems = menuItems.filter(item => {
+                    return category === 'all' || item.category === category;
+                });
+                
+                const startIndex = (page - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                const paginatedItems = filteredItems.slice(startIndex, endIndex);
+                
+                menuGrid.innerHTML = '';
+                
+                if (paginatedItems.length === 0) {
+                    menuGrid.innerHTML = `
+                        <div class="no-results">
+                            <i class="fas fa-utensils"></i>
+                            <p>No encontramos productos en esta categoría</p>
+                        </div>
+                    `;
+                } else {
+                    paginatedItems.forEach(item => {
+                        const menuItem = createMenuItem(item);
+                        menuGrid.appendChild(menuItem);
+                    });
+                }
+                
+                updatePagination();
+                menuGrid.classList.remove('loading');
+                
+                // Scroll suave al cambiar categorías
+                if (category !== currentCategory) {
+                    menuGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 300);
+        }
+        
+        function createMenuItem(item) {
+            const menuItem = document.createElement('div');
+            menuItem.className = 'menu-item';
+            
+            // Etiquetas simplificadas
+            const tagsHTML = item.tags.map(tag => {
+                let tagClass = '';
+                let icon = '';
+                
+                if (tag.toLowerCase().includes('picante')) {
+                    tagClass = 'hot';
+                    icon = '<i class="fas fa-pepper-hot"></i> ';
+                } else if (tag.toLowerCase().includes('veggie') || tag.toLowerCase().includes('vegetariana')) {
+                    tagClass = 'veg';
+                    icon = '<i class="fas fa-leaf"></i> ';
+                } else if (tag.toLowerCase().includes('combo')) {
+                    tagClass = 'combo';
+                    icon = '<i class="fas fa-box-open"></i> ';
+                }
+                
+                return `<span class="menu-tag ${tagClass}">${icon}${tag}</span>`;
+            }).join('');
+            
+            menuItem.innerHTML = `
+                <div class="menu-item-img-container">
+                    <img src="${item.image}" alt="${item.name}" loading="lazy">
+                    ${item.badge ? `<span class="menu-item-badge">${item.badge}</span>` : ''}
+                </div>
+                <div class="menu-item-content">
+                    <div class="menu-item-header">
+                        <h3 class="menu-item-title">${item.name}</h3>
+                        <p class="menu-item-price">$${item.price.toFixed(2)}</p>
+                    </div>
+                    <div class="menu-item-tags">
+                        ${tagsHTML}
+                    </div>
+                    <p class="menu-item-desc">${item.description}</p>
+                    <div class="menu-item-footer">
+                        <a href="https://wa.me/523221837950?text=Hola,%20quisiera%20pedir%20${encodeURIComponent(item.name)}" class="whatsapp-btn" target="_blank">
+                            <i class="fab fa-whatsapp"></i> Pedir
+                        </a>
+                    </div>
+                </div>
+            `;
+            
+            return menuItem;
+        }
+        
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+            pagination.innerHTML = '';
+            
+            if (totalPages <= 1) return;
+            
+            if (currentPage > 1) {
+                const prevBtn = document.createElement('button');
+                prevBtn.className = 'page-btn';
+                prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+                prevBtn.addEventListener('click', () => loadMenu(currentPage - 1, currentCategory));
+                pagination.appendChild(prevBtn);
+            }
+            
+            for (let i = 1; i <= totalPages; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+                pageBtn.textContent = i;
+                pageBtn.addEventListener('click', () => loadMenu(i, currentCategory));
+                pagination.appendChild(pageBtn);
+            }
+            
+            if (currentPage < totalPages) {
+                const nextBtn = document.createElement('button');
+                nextBtn.className = 'page-btn';
+                nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+                nextBtn.addEventListener('click', () => loadMenu(currentPage + 1, currentCategory));
+                pagination.appendChild(nextBtn);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMenu();
+            
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    loadMenu(1, this.dataset.category);
+                });
+            });
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
